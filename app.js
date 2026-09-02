@@ -2,12 +2,12 @@
   "use strict";
 
   const VIST_RATE = 10; // 1 очко горы = 10 вистов (стандартная конвенция)
-  const PLAYER_NAMES = ["Игрок 1", "Игрок 2", "Игрок 3", "Игрок 4"];
+  const PLAYER_NAMES = ["Запад", "Юг", "Восток", "Север"];
 
   const state = {
-    n: 3,
-    variant: "classic", // "classic" | "leningrad"
-    view: "table", // "table" | "pulka"
+    n: 4,
+    variant: "leningrad", // "classic" | "leningrad"
+    view: "pulka", // "table" | "pulka"
     players: [
       { pulya: 0, gora: 0 },
       { pulya: 0, gora: 0 },
@@ -173,8 +173,8 @@
       banner.textContent =
         "⚠ Сумма итогов не равна нулю (получено " + fmt(r.total) + "). Проверьте введённые данные — где-то ошибка.";
     } else {
-      banner.className = "banner ok";
-      banner.textContent = "Сумма итогов сходится в ноль — расчёт корректен.";
+      banner.className = "banner hidden";
+      banner.textContent = "";
     }
 
     // results table
