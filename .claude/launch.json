@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "prefcalc",
+      "runtimeExecutable": "bash",
+      "runtimeArgs": ["-c", "cd /tmp && exec python3 -m http.server 8743 --directory \"/Users/gd/Library/Mobile Documents/com~apple~CloudDocs/Documents/src/PrefCalc\""],
+      "port": 8743
+    }
+  ]
+}
