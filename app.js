@@ -72,9 +72,34 @@
     const adjGora = players.map(
       (p) => p.gora - (p.pulya - target) * mult
     );
-    const sumGora = adjGora.reduce((a, b) => a + b, 0);
+
+    // Traditional rounding rule: if the total gora doesn't divide evenly by
+    // the player count, one player's gora is nudged by the smallest integer
+    // amount that fixes it (which player is arbitrary "by agreement" — here
+    // we always pick whoever has the largest gora), so the average-gora
+    // division comes out exact and nobody ends up with fractional vists.
+    const roundedGora = adjGora.slice();
+    let rounding = null; // { player, delta } when a correction was applied
+    const rawSum = adjGora.reduce((a, b) => a + b, 0);
+    const remainder = Math.round((((rawSum % n) + n) % n) * 1e6) / 1e6;
+    if (remainder > 1e-6) {
+      const subAmount = remainder;
+      const addAmount = n - remainder;
+      let targetIdx = 0;
+      for (let i = 1; i < n; i++) {
+        if (adjGora[i] > adjGora[targetIdx]) targetIdx = i;
+      }
+      const delta =
+        subAmount <= addAmount && adjGora[targetIdx] - subAmount >= 0
+          ? -subAmount
+          : addAmount;
+      roundedGora[targetIdx] += delta;
+      rounding = { player: targetIdx, delta };
+    }
+
+    const sumGora = roundedGora.reduce((a, b) => a + b, 0);
     const avgGora = sumGora / n;
-    const horka = adjGora.map((g) => (avgGora - g) * VIST_RATE);
+    const horka = roundedGora.map((g) => (avgGora - g) * VIST_RATE);
 
     const vistNet = new Array(n).fill(0);
     pairsForN(n).forEach((key) => {
@@ -87,7 +112,7 @@
     const final = horka.map((h, i) => h + vistNet[i]);
     const total = final.reduce((a, b) => a + b, 0);
 
-    return { n, target, mult, adjGora, avgGora, horka, vistNet, final, total };
+    return { n, target, mult, adjGora, roundedGora, rounding, avgGora, horka, vistNet, final, total };
   }
 
   function fmt(num) {
@@ -193,20 +218,19 @@
       body.appendChild(tr);
     }
 
-    // fraction note
-    const fracNote = document.getElementById("fraction-note");
-    const hasFraction = r.final.some((v) => Math.abs(v - Math.round(v)) > eps);
-    fracNote.classList.toggle("hidden", !hasFraction);
-
     // breakdown table
     const bBody = document.getElementById("breakdown-body");
     bBody.innerHTML = "";
     for (let i = 0; i < r.n; i++) {
       const tr = document.createElement("tr");
+      let goraCell = fmt(r.roundedGora[i]);
+      if (r.rounding && r.rounding.player === i) {
+        goraCell += " (" + (r.rounding.delta > 0 ? "+" : "") + fmt(r.rounding.delta) + ")";
+      }
       const cells = [
         PLAYER_NAMES[i],
         fmt(state.players[i].gora),
-        fmt(r.adjGora[i]),
+        goraCell,
         fmt(r.avgGora),
         fmt(r.horka[i]),
         fmt(r.vistNet[i]),
@@ -218,6 +242,18 @@
         tr.appendChild(td);
       });
       bBody.appendChild(tr);
+    }
+
+    // rounding note (only shown when the traditional ±1 correction was applied)
+    const roundingNote = document.getElementById("rounding-note");
+    if (r.rounding) {
+      roundingNote.textContent =
+        "Гора игрока «" + PLAYER_NAMES[r.rounding.player] + "» скорректирована на " +
+        (r.rounding.delta > 0 ? "+" : "") + fmt(r.rounding.delta) +
+        " очко(а) — традиционная поправка для точного деления горы на число игроков (кому именно она достаётся — по правилам произвольно). Результат с горки уже пересчитан с её учётом.";
+      roundingNote.classList.remove("hidden");
+    } else {
+      roundingNote.classList.add("hidden");
     }
 
     updateVistExplain();
