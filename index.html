@@ -143,66 +143,64 @@
   <!-- ===================== PULKA VIEW ===================== -->
   <div id="pulka-view">
     <section class="panel" id="pulka-panel">
-      <h2>Пулька</h2>
-      <p class="panel-note">Впишите числа прямо в зоны бланка — так же, как на бумаге.</p>
-
       <div class="pulka-wrap hidden" id="pulka-3">
         <svg class="pulka-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
           <rect x="0.3" y="0.3" width="99.4" height="99.4" class="pulka-line" fill="none"/>
-          <!-- top-half column dividers -->
-          <line x1="26" y1="0" x2="26" y2="50" class="pulka-line"/>
-          <line x1="36" y1="0" x2="36" y2="50" class="pulka-line"/>
-          <line x1="64" y1="0" x2="64" y2="50" class="pulka-line"/>
-          <line x1="74" y1="0" x2="74" y2="50" class="pulka-line"/>
-          <!-- outer vist column split -->
-          <line x1="0" y1="50" x2="26" y2="50" class="pulka-line"/>
-          <line x1="74" y1="50" x2="100" y2="50" class="pulka-line"/>
-          <!-- triangle (player 2) outline -->
-          <line x1="50" y1="50" x2="0" y2="100" class="pulka-line"/>
-          <line x1="50" y1="50" x2="100" y2="100" class="pulka-line"/>
-          <!-- gora / pulya boundary inside triangle -->
-          <line x1="38" y1="73" x2="62" y2="73" class="pulka-line"/>
-          <!-- pulya / visty boundary inside triangle -->
-          <line x1="24" y1="83" x2="76" y2="83" class="pulka-line"/>
-          <!-- visty split for player 2 -->
-          <line x1="50" y1="83" x2="50" y2="100" class="pulka-line"/>
+          <!-- triangle sides (Юг's outer boundary) -->
+          <line x1="0" y1="100" x2="50" y2="44" class="pulka-line"/>
+          <line x1="50" y1="44" x2="100" y2="100" class="pulka-line"/>
+          <!-- pulya rectangle (outer) -->
+          <line x1="22" y1="0" x2="22" y2="74.5" class="pulka-line"/>
+          <line x1="78" y1="0" x2="78" y2="74.5" class="pulka-line"/>
+          <line x1="22" y1="74.5" x2="78" y2="74.5" class="pulka-line"/>
+          <!-- gora rectangle (inner) -->
+          <line x1="30" y1="0" x2="30" y2="65" class="pulka-line"/>
+          <line x1="70" y1="0" x2="70" y2="65" class="pulka-line"/>
+          <line x1="30" y1="65" x2="70" y2="65" class="pulka-line"/>
+          <!-- center divider: Запад vs Восток -->
+          <line x1="50" y1="0" x2="50" y2="44" class="pulka-line"/>
+          <!-- outer vist column split, left/right -->
+          <line x1="0" y1="35" x2="22" y2="35" class="pulka-line"/>
+          <line x1="78" y1="35" x2="100" y2="35" class="pulka-line"/>
+          <!-- Юг's own vist split -->
+          <line x1="50" y1="74.5" x2="50" y2="100" class="pulka-line"/>
         </svg>
 
         <div class="pulka-inputs">
-          <div class="pulka-field vist" style="left:3%; top:6%; width:20%; height:15%;" data-tip="Висты: Запад на Восток">
+          <div class="pulka-field vist" style="left:3%; top:8%; width:19%; height:16%;" data-tip="Висты: Запад на Восток">
             <input type="number" class="pk-vist-input" data-pk="A" value="0">
           </div>
-          <div class="pulka-field vist" style="left:3%; top:54%; width:20%; height:14%;" data-tip="Висты: Запад на Юг">
+          <div class="pulka-field vist" style="left:3%; top:48%; width:19%; height:18%;" data-tip="Висты: Запад на Юг">
             <input type="number" class="pk-vist-input" data-pk="B" value="0">
           </div>
-          <div class="pulka-field pulya" style="left:25.5%; top:18%; width:11%; height:22%;" data-tip="Пуля: Запад">
+          <div class="pulka-field pulya" style="left:23%; top:12%; width:6%; height:20%;" data-tip="Пуля: Запад">
             <input type="number" class="pk-pulya-input" data-pk-player="0" value="0" min="0">
           </div>
-          <div class="pulka-field gora" style="left:37.5%; top:9%; width:11%; height:33%;" data-tip="Гора: Запад">
+          <div class="pulka-field gora" style="left:32%; top:14%; width:16%; height:24%;" data-tip="Гора: Запад">
             <input type="number" class="pk-gora-input" data-pk-player="0" value="0" min="0">
           </div>
-          <div class="pulka-field gora" style="left:51.5%; top:9%; width:11%; height:33%;" data-tip="Гора: Восток">
+          <div class="pulka-field gora" style="left:52%; top:14%; width:16%; height:24%;" data-tip="Гора: Восток">
             <input type="number" class="pk-gora-input" data-pk-player="2" value="0" min="0">
           </div>
-          <div class="pulka-field pulya" style="left:63.5%; top:18%; width:11%; height:22%;" data-tip="Пуля: Восток">
+          <div class="pulka-field pulya" style="left:71%; top:12%; width:6%; height:20%;" data-tip="Пуля: Восток">
             <input type="number" class="pk-pulya-input" data-pk-player="2" value="0" min="0">
           </div>
-          <div class="pulka-field vist" style="left:77%; top:6%; width:20%; height:15%;" data-tip="Висты: Восток на Запад">
+          <div class="pulka-field vist" style="left:78%; top:8%; width:19%; height:16%;" data-tip="Висты: Восток на Запад">
             <input type="number" class="pk-vist-input" data-pk="F" value="0">
           </div>
-          <div class="pulka-field vist" style="left:77%; top:54%; width:20%; height:14%;" data-tip="Висты: Восток на Юг">
+          <div class="pulka-field vist" style="left:78%; top:48%; width:19%; height:18%;" data-tip="Висты: Восток на Юг">
             <input type="number" class="pk-vist-input" data-pk="E" value="0">
           </div>
-          <div class="pulka-field gora small" style="left:41%; top:61%; width:18%; height:11%;" data-tip="Гора: Юг">
+          <div class="pulka-field gora" style="left:36%; top:48%; width:28%; height:13%;" data-tip="Гора: Юг">
             <input type="number" class="pk-gora-input" data-pk-player="1" value="0" min="0">
           </div>
-          <div class="pulka-field pulya wide" style="left:29%; top:75%; width:42%; height:7%;" data-tip="Пуля: Юг">
+          <div class="pulka-field pulya" style="left:35%; top:67%; width:30%; height:5%;" data-tip="Пуля: Юг">
             <input type="number" class="pk-pulya-input" data-pk-player="1" value="0" min="0">
           </div>
-          <div class="pulka-field vist" style="left:8%; top:86%; width:36%; height:12%;" data-tip="Висты: Юг на Запад">
+          <div class="pulka-field vist" style="left:18%; top:82%; width:27%; height:14%;" data-tip="Висты: Юг на Запад">
             <input type="number" class="pk-vist-input" data-pk="C" value="0">
           </div>
-          <div class="pulka-field vist" style="left:56%; top:86%; width:36%; height:12%;" data-tip="Висты: Юг на Восток">
+          <div class="pulka-field vist" style="left:55%; top:82%; width:27%; height:14%;" data-tip="Висты: Юг на Восток">
             <input type="number" class="pk-vist-input" data-pk="D" value="0">
           </div>
         </div>
@@ -210,100 +208,99 @@
 
       <div class="pulka-wrap" id="pulka-4">
         <svg class="pulka-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-          <!-- outer octagon -->
-          <line x1="16" y1="0" x2="0" y2="16" class="pulka-line"/>
-          <line x1="84" y1="0" x2="100" y2="16" class="pulka-line"/>
-          <line x1="0" y1="84" x2="16" y2="100" class="pulka-line"/>
-          <line x1="100" y1="84" x2="84" y2="100" class="pulka-line"/>
-          <!-- outer edge thirds -->
-          <line x1="38.67" y1="0" x2="38.67" y2="16" class="pulka-line"/>
-          <line x1="61.33" y1="0" x2="61.33" y2="16" class="pulka-line"/>
-          <line x1="38.67" y1="84" x2="38.67" y2="100" class="pulka-line"/>
-          <line x1="61.33" y1="84" x2="61.33" y2="100" class="pulka-line"/>
-          <line x1="0" y1="38.67" x2="16" y2="38.67" class="pulka-line"/>
-          <line x1="0" y1="61.33" x2="16" y2="61.33" class="pulka-line"/>
-          <line x1="84" y1="38.67" x2="100" y2="38.67" class="pulka-line"/>
-          <line x1="84" y1="61.33" x2="100" y2="61.33" class="pulka-line"/>
-          <!-- inner rectangle -->
-          <rect x="22" y="16" width="56" height="68" class="pulka-line" fill="none"/>
-          <!-- diagonals to center -->
-          <line x1="22" y1="16" x2="50" y2="50" class="pulka-line"/>
-          <line x1="78" y1="16" x2="50" y2="50" class="pulka-line"/>
-          <line x1="22" y1="84" x2="50" y2="50" class="pulka-line"/>
-          <line x1="78" y1="84" x2="50" y2="50" class="pulka-line"/>
+          <rect x="0.3" y="0.3" width="99.4" height="99.4" class="pulka-line" fill="none"/>
+          <!-- full corner-to-corner diagonals (pass exactly through the inner square's corners) -->
+          <line x1="0" y1="100" x2="100" y2="0" class="pulka-line"/>
+          <line x1="0" y1="0" x2="100" y2="100" class="pulka-line"/>
+          <!-- pulya square (outer) -->
+          <rect x="22" y="22" width="56" height="56" class="pulka-line" fill="none"/>
+          <!-- gora square (inner) -->
+          <rect x="30" y="30" width="40" height="40" class="pulka-line" fill="none"/>
+          <!-- top edge thirds -->
+          <line x1="36" y1="0" x2="36" y2="22" class="pulka-line"/>
+          <line x1="65" y1="0" x2="65" y2="22" class="pulka-line"/>
+          <!-- bottom edge thirds -->
+          <line x1="36" y1="78" x2="36" y2="100" class="pulka-line"/>
+          <line x1="65" y1="78" x2="65" y2="100" class="pulka-line"/>
+          <!-- left edge thirds -->
+          <line x1="0" y1="35" x2="22" y2="35" class="pulka-line"/>
+          <line x1="0" y1="65" x2="22" y2="65" class="pulka-line"/>
+          <!-- right edge thirds -->
+          <line x1="78" y1="35" x2="100" y2="35" class="pulka-line"/>
+          <line x1="78" y1="65" x2="100" y2="65" class="pulka-line"/>
         </svg>
 
         <div class="pulka-inputs">
           <!-- top edge: player 4 vists -->
-          <div class="pulka-field vist" style="left:17.3%; top:2%; width:20%; height:11%;" data-tip="Висты: Север на Запад">
+          <div class="pulka-field vist" style="left:8%; top:4%; width:20%; height:14%;" data-tip="Висты: Север на Запад">
             <input type="number" class="pk4-vist-input" data-pk="L" value="0">
           </div>
-          <div class="pulka-field vist" style="left:40%; top:2%; width:20%; height:11%;" data-tip="Висты: Север на Юг">
+          <div class="pulka-field vist" style="left:40.5%; top:4%; width:20%; height:14%;" data-tip="Висты: Север на Юг">
             <input type="number" class="pk4-vist-input" data-pk="K" value="0">
           </div>
-          <div class="pulka-field vist" style="left:62.7%; top:2%; width:20%; height:11%;" data-tip="Висты: Север на Восток">
+          <div class="pulka-field vist" style="left:72.5%; top:4%; width:20%; height:14%;" data-tip="Висты: Север на Восток">
             <input type="number" class="pk4-vist-input" data-pk="J" value="0">
           </div>
           <!-- bottom edge: player 2 vists -->
-          <div class="pulka-field vist" style="left:17.3%; top:87%; width:20%; height:11%;" data-tip="Висты: Юг на Запад">
+          <div class="pulka-field vist" style="left:8%; top:82%; width:20%; height:14%;" data-tip="Висты: Юг на Запад">
             <input type="number" class="pk4-vist-input" data-pk="D" value="0">
           </div>
-          <div class="pulka-field vist" style="left:40%; top:87%; width:20%; height:11%;" data-tip="Висты: Юг на Север">
+          <div class="pulka-field vist" style="left:40.5%; top:82%; width:20%; height:14%;" data-tip="Висты: Юг на Север">
             <input type="number" class="pk4-vist-input" data-pk="E" value="0">
           </div>
-          <div class="pulka-field vist" style="left:62.7%; top:87%; width:20%; height:11%;" data-tip="Висты: Юг на Восток">
+          <div class="pulka-field vist" style="left:72.5%; top:82%; width:20%; height:14%;" data-tip="Висты: Юг на Восток">
             <input type="number" class="pk4-vist-input" data-pk="F" value="0">
           </div>
           <!-- left edge: player 1 vists -->
-          <div class="pulka-field vist" style="left:2%; top:17.3%; width:11%; height:20%;" data-tip="Висты: Запад на Север">
+          <div class="pulka-field vist" style="left:5.5%; top:7%; width:11%; height:21%;" data-tip="Висты: Запад на Север">
             <input type="number" class="pk4-vist-input" data-pk="A" value="0">
           </div>
-          <div class="pulka-field vist" style="left:2%; top:40%; width:11%; height:20%;" data-tip="Висты: Запад на Восток">
+          <div class="pulka-field vist" style="left:5.5%; top:39.5%; width:11%; height:21%;" data-tip="Висты: Запад на Восток">
             <input type="number" class="pk4-vist-input" data-pk="B" value="0">
           </div>
-          <div class="pulka-field vist" style="left:2%; top:62.7%; width:11%; height:20%;" data-tip="Висты: Запад на Юг">
+          <div class="pulka-field vist" style="left:5.5%; top:72%; width:11%; height:21%;" data-tip="Висты: Запад на Юг">
             <input type="number" class="pk4-vist-input" data-pk="C" value="0">
           </div>
           <!-- right edge: player 3 vists -->
-          <div class="pulka-field vist" style="left:87%; top:17.3%; width:11%; height:20%;" data-tip="Висты: Восток на Север">
+          <div class="pulka-field vist" style="left:83.5%; top:7%; width:11%; height:21%;" data-tip="Висты: Восток на Север">
             <input type="number" class="pk4-vist-input" data-pk="I" value="0">
           </div>
-          <div class="pulka-field vist" style="left:87%; top:40%; width:11%; height:20%;" data-tip="Висты: Восток на Запад">
+          <div class="pulka-field vist" style="left:83.5%; top:39.5%; width:11%; height:21%;" data-tip="Висты: Восток на Запад">
             <input type="number" class="pk4-vist-input" data-pk="H" value="0">
           </div>
-          <div class="pulka-field vist" style="left:87%; top:62.7%; width:11%; height:20%;" data-tip="Висты: Восток на Юг">
+          <div class="pulka-field vist" style="left:83.5%; top:72%; width:11%; height:21%;" data-tip="Висты: Восток на Юг">
             <input type="number" class="pk4-vist-input" data-pk="G" value="0">
           </div>
 
           <!-- player 4 (top): pulya, gora -->
-          <div class="pulka-field pulya" style="left:40%; top:17%; width:20%; height:5%;" data-tip="Пуля: Север">
+          <div class="pulka-field pulya" style="left:35%; top:24%; width:30%; height:5%;" data-tip="Пуля: Север">
             <input type="number" class="pk-pulya-input" data-pk-player="3" value="0" min="0">
           </div>
-          <div class="pulka-field gora" style="left:40%; top:24%; width:20%; height:13%;" data-tip="Гора: Север">
+          <div class="pulka-field gora" style="left:42%; top:31%; width:16%; height:10%;" data-tip="Гора: Север">
             <input type="number" class="pk-gora-input" data-pk-player="3" value="0" min="0">
           </div>
 
           <!-- player 2 (bottom): pulya, gora -->
-          <div class="pulka-field pulya" style="left:40%; top:78%; width:20%; height:5%;" data-tip="Пуля: Юг">
+          <div class="pulka-field pulya" style="left:35%; top:71%; width:30%; height:5%;" data-tip="Пуля: Юг">
             <input type="number" class="pk-pulya-input" data-pk-player="1" value="0" min="0">
           </div>
-          <div class="pulka-field gora" style="left:40%; top:63%; width:20%; height:13%;" data-tip="Гора: Юг">
+          <div class="pulka-field gora" style="left:42%; top:59%; width:16%; height:10%;" data-tip="Гора: Юг">
             <input type="number" class="pk-gora-input" data-pk-player="1" value="0" min="0">
           </div>
 
           <!-- player 1 (left): pulya, gora -->
-          <div class="pulka-field pulya" style="left:22.25%; top:40%; width:7.5%; height:20%;" data-tip="Пуля: Запад">
+          <div class="pulka-field pulya" style="left:23%; top:35%; width:7%; height:30%;" data-tip="Пуля: Запад">
             <input type="number" class="pk-pulya-input" data-pk-player="0" value="0" min="0">
           </div>
-          <div class="pulka-field gora" style="left:30%; top:41%; width:13%; height:18%;" data-tip="Гора: Запад">
+          <div class="pulka-field gora" style="left:31%; top:42%; width:10%; height:16%;" data-tip="Гора: Запад">
             <input type="number" class="pk-gora-input" data-pk-player="0" value="0" min="0">
           </div>
 
           <!-- player 3 (right): pulya, gora -->
-          <div class="pulka-field pulya" style="left:70.25%; top:40%; width:7.5%; height:20%;" data-tip="Пуля: Восток">
+          <div class="pulka-field pulya" style="left:70%; top:35%; width:7%; height:30%;" data-tip="Пуля: Восток">
             <input type="number" class="pk-pulya-input" data-pk-player="2" value="0" min="0">
           </div>
-          <div class="pulka-field gora" style="left:57%; top:41%; width:13%; height:18%;" data-tip="Гора: Восток">
+          <div class="pulka-field gora" style="left:59%; top:42%; width:10%; height:16%;" data-tip="Гора: Восток">
             <input type="number" class="pk-gora-input" data-pk-player="2" value="0" min="0">
           </div>
         </div>

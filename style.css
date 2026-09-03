@@ -19,6 +19,17 @@
 
 * { box-sizing: border-box; }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
+}
+
 body {
   margin: 0;
   background: var(--bg);
@@ -327,6 +338,10 @@ summary {
   aspect-ratio: 1 / 1;
 }
 
+#pulka-3 {
+  aspect-ratio: 3628.9807 / 3274.8652;
+}
+
 .pulka-svg {
   position: absolute;
   inset: 0;
@@ -362,19 +377,12 @@ summary {
   color: var(--text);
 }
 
+
 .pulka-field input:focus {
   outline: none;
   border-color: var(--accent);
   background: #fffefb;
 }
-
-.pulka-field.gora { background: rgba(227, 106, 90, 0.16); }
-.pulka-field.pulya { background: rgba(90, 168, 110, 0.18); }
-.pulka-field.vist { background: rgba(90, 140, 227, 0.16); }
-
-.pulka-field.gora input::placeholder,
-.pulka-field.pulya input::placeholder,
-.pulka-field.vist input::placeholder { color: var(--text-muted); }
 
 @media (max-width: 560px) {
   .vist-row {
