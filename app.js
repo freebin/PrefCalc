@@ -3,6 +3,8 @@
 
   const VIST_RATE = 10; // 1 очко горы = 10 вистов (стандартная конвенция)
   const PLAYER_NAMES = ["Запад", "Юг", "Восток", "Север"];
+  const VARIANT_LABELS = { classic: "Классика", leningrad: "Ленинградка" };
+  const STORAGE_KEY = "prefcalc-settings";
 
   const state = {
     n: 4,
@@ -23,6 +25,63 @@
     // A:1->4 B:1->3 C:1->2 D:2->1 E:2->4 F:2->3 G:3->2 H:3->1 I:3->4 J:4->3 K:4->2 L:4->1
     pulka4: { A: 0, B: 0, C: 0, D: 0, E: 0, F: 0, G: 0, H: 0, I: 0, J: 0, K: 0, L: 0 },
   };
+
+  function loadSettings() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const saved = JSON.parse(raw);
+      if (saved.n === 3 || saved.n === 4) state.n = saved.n;
+      if (saved.variant === "classic" || saved.variant === "leningrad") state.variant = saved.variant;
+      if (saved.view === "table" || saved.view === "pulka") state.view = saved.view;
+    } catch (e) {
+      // localStorage unavailable or corrupted — ignore, defaults stand
+    }
+  }
+
+  function saveSettings() {
+    try {
+      localStorage.setItem(
+        STORAGE_KEY,
+        JSON.stringify({ n: state.n, variant: state.variant, view: state.view })
+      );
+    } catch (e) {
+      // localStorage unavailable (private mode, quota, etc.) — silently skip
+    }
+  }
+
+  // clears every entered number back to zero, in state and in the DOM
+  function resetAllData() {
+    state.players.forEach((p) => {
+      p.pulya = 0;
+      p.gora = 0;
+    });
+    Object.keys(state.vists).forEach((k) => (state.vists[k] = 0));
+    Object.keys(state.pulka).forEach((k) => (state.pulka[k] = 0));
+    Object.keys(state.pulka4).forEach((k) => (state.pulka4[k] = 0));
+
+    document
+      .querySelectorAll(
+        ".pulya-input, .gora-input, .vist-input, .pk-pulya-input, .pk-gora-input, .pk-vist-input, .pk4-vist-input"
+      )
+      .forEach((el) => (el.value = "0"));
+  }
+
+  function updateConfigSummary() {
+    const el = document.getElementById("config-summary-text");
+    el.textContent = state.n + " игрока · " + VARIANT_LABELS[state.variant];
+  }
+
+  function syncConfigControls() {
+    document.querySelectorAll("#player-count-toggle .seg-btn").forEach((b) => {
+      b.classList.toggle("active", Number(b.dataset.n) === state.n);
+    });
+    document.querySelectorAll("#view-toggle .seg-btn").forEach((b) => {
+      b.classList.toggle("active", b.dataset.view === state.view);
+    });
+    document.getElementById("variant-select").value = state.variant;
+    updateConfigSummary();
+  }
 
   function allPairs() {
     return ["0-1", "0-2", "1-2", "0-3", "1-3", "2-3"];
@@ -122,6 +181,8 @@
   }
 
   function render() {
+    syncConfigControls();
+
     // toggle player card visibility (table view)
     document.querySelectorAll(".player-card").forEach((card) => {
       const idx = Number(card.dataset.player);
@@ -260,13 +321,22 @@
   }
 
   function attachListeners() {
+    // settings gear toggle
+    const gearBtn = document.getElementById("config-toggle-btn");
+    const fullRow = document.getElementById("config-full-row");
+    gearBtn.addEventListener("click", () => {
+      const expanded = fullRow.classList.toggle("hidden") === false;
+      gearBtn.classList.toggle("active", expanded);
+      gearBtn.setAttribute("aria-expanded", String(expanded));
+    });
+
     // player count toggle
     document.querySelectorAll("#player-count-toggle .seg-btn").forEach((btn) => {
       btn.addEventListener("click", () => {
+        if (Number(btn.dataset.n) === state.n) return;
         state.n = Number(btn.dataset.n);
-        document
-          .querySelectorAll("#player-count-toggle .seg-btn")
-          .forEach((b) => b.classList.toggle("active", b === btn));
+        resetAllData();
+        saveSettings();
         render();
       });
     });
@@ -276,9 +346,7 @@
       btn.addEventListener("click", () => {
         if (btn.disabled) return;
         state.view = btn.dataset.view;
-        document
-          .querySelectorAll("#view-toggle .seg-btn")
-          .forEach((b) => b.classList.toggle("active", b === btn));
+        saveSettings();
         render();
       });
     });
@@ -286,6 +354,8 @@
     // variant select
     document.getElementById("variant-select").addEventListener("change", (e) => {
       state.variant = e.target.value;
+      saveSettings();
+      updateConfigSummary();
       updateResults();
     });
 
@@ -354,6 +424,7 @@
   }
 
   document.addEventListener("DOMContentLoaded", () => {
+    loadSettings();
     attachListeners();
     render();
   });

@@ -11,12 +11,14 @@
 
   <header class="page-header">
     <h1>Калькулятор итогового счёта в преферансе</h1>
-    <p class="subtitle">Введите итоговые значения горы, пули и вистов с бумажной пульки — расчёт выполнится автоматически.</p>
   </header>
 
   <section class="panel" id="config-panel">
-    <h2>Настройки</h2>
-    <div class="config-row">
+    <div class="config-summary" id="config-summary">
+      <span id="config-summary-text"></span>
+      <button type="button" class="gear-btn" id="config-toggle-btn" title="Настройки" aria-label="Настройки" aria-expanded="false">⚙</button>
+    </div>
+    <div class="config-row hidden" id="config-full-row">
       <div class="field">
         <label>Количество игроков</label>
         <div class="segmented" id="player-count-toggle">
